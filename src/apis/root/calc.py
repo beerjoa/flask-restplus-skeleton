@@ -16,15 +16,15 @@ custom_error = error.CustomError()
 ns = Namespace('calc', 'Calc api')
 
 model_number = ns.model('numbers', {
-    'num1': fields.Integer(readOnly=True, required=True, description='첫번째 숫자', help='필수'),
-    'num2': fields.Integer(readOnly=True, required=True, description='두번째 숫자', help='필수'),
-    'symbol': fields.String(readOnly=True, required=True, description='연산기호', help='필수')
+    'num1': fields.Integer(readOnly=True, required=True, description='first number'),
+    'num2': fields.Integer(readOnly=True, required=True, description='second number'),
+    'symbol': fields.String(readOnly=True, required=True, description='symbol')
 })
 
 calc_parser = reqparse.RequestParser(bundle_errors=True)
-calc_parser.add_argument('num1', default='1', required=True, help='첫번째 숫자', type=int, location='args')
-calc_parser.add_argument('num2', default='2', required=True, help='두번째 숫자', type=int, location='args')
-calc_parser.add_argument('symbol', default='+', required=True, help='연산기호', type=str, location='args')
+calc_parser.add_argument('num1', default='1', required=True, help='first number', type=int, location='args')
+calc_parser.add_argument('num2', default='2', required=True, help='second number', type=int, location='args')
+calc_parser.add_argument('symbol', default='+', required=True, help='symbol', type=str, location='args')
 
 
 @ns.route("")

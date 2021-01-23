@@ -1,71 +1,55 @@
 # flask-restplus-skeleton
 
+
 ##### [status code WIKI](https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C#3xx_(%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%EC%85%98_%EC%99%84%EB%A3%8C))
 ##### [flask restplus error handling](https://flask-restplus.readthedocs.io/en/stable/errors.html)
 
 
 
-<br>
-<br>
 
 
+## INSTALL
 
-### INSTALL
+#### 1. set python virtual environment
 
-    1. set python virtual environment
+Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand
 
-        Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand
-        
-        On a Mac: 
-            $ make Darwin
-        On a Linux: 
-            $ make Linux
+On a Mac: 
 
-    2. build the virtual environment and install requirements
+```bash
+$ make Darwin
+```
 
-        $ make build
-
-
+On a Linux: 
+```bash
+$ make Linux
+```
 <br>
 
+#### 2. build the virtual environment and install requirements
 
------
-
-<br>
-<br>
-
-
-### TEST
-    To run test:
-
-    $ make tests
-
-<br>
-<br>
-
------
-
-<br>
-<br>
+```bash
+$ make build
+```
 
 
-### RUN
+## TEST
+To run test:
 
-    To run app:
+```bash
+$ make run
+```
+## RUN
 
-    $ make run
+To run app:
 
-<br>
-<br>
-
------
+```bash
+$ make run
+```
 
 
 
-<br>
-
-
-### USAGE
+## USAGE
 
 - swagger ui
 
@@ -73,17 +57,15 @@
 
 
 
-<br>
-
------
-
-<br>
 
 
-### Screenshot
+## Screenshot
 
-  <!-- ![example](https://user-images.githubusercontent.com/22663614/105568122-5cd83a80-5d7a-11eb-8c0f-fb6da9636272.png) -->
+  ![example](https://user-images.githubusercontent.com/22663614/105568697-ce19ec80-5d7e-11eb-86f5-afe399746314.png)
 
-  <img src="https://user-images.githubusercontent.com/22663614/105568122-5cd83a80-5d7a-11eb-8c0f-fb6da9636272.png"  width="50%" height="50%">
 
   
+
+
+## Refference
+[Makefile for a Python environment with pyenv-virtualenv](https://gist.github.com/genyrosk/2a6e893ee72fa2737a6df243f6520a6d)
