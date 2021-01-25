@@ -14,16 +14,11 @@
 
 Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand
 
-On a Mac: 
-
+Install pyenv and pyenv-virtualenv on Linux or MacOS
 ```bash
-$ make Darwin
+$ make install-pyenv
 ```
 
-On a Linux: 
-```bash
-$ make Linux
-```
 <br>
 
 #### 2. build the virtual environment and install requirements

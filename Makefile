@@ -4,6 +4,7 @@ VERSION=3.7.4
 VENV=${PROJECT}-${VERSION}
 VENV_DIR=$(shell pyenv root)/versions/${VENV}
 PYTHON=${VENV_DIR}/bin/python
+UNAME := $(shell uname)
 
 # .ONESHELL:
 .PHONY: run clean build venv tests
@@ -24,6 +25,10 @@ clean:
 	find . -type f -name '*.pid' -delete
 	find . -type d -name '__pycache__' -delete
 
+install-pyenv:
+	@echo "Install pyenv and pyenv-virtualenv on Linux or MacOS"
+	$(MAKE) $(UNAME)
+
 Darwin: 
 	brew update 
 	brew install pyenv pyenv-virtualenv
@@ -37,7 +42,6 @@ Linux:
 	exec "$SHELL"
 	. ~/.bash_profile
 	echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bash_profile
-
 
 build:
 	@echo ""
