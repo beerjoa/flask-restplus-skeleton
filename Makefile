@@ -7,7 +7,7 @@ PYTHON=${VENV_DIR}/bin/python
 UNAME := $(shell uname)
 
 # .ONESHELL:
-.PHONY: run clean build venv tests
+.PHONY: run clean build venv tests all
 
 ccend=$(shell tput sgr0)
 ccbold=$(shell tput bold)
@@ -65,3 +65,5 @@ tests:
 
 run:
 	python src/app.py run
+
+all: install-pyenv build test
