@@ -32,33 +32,47 @@ install-pyenv:
 Darwin: 
 	brew update 
 	brew install pyenv pyenv-virtualenv
-	echo 'eval "$(pyenv init -)"' >> ~/.bash_profile
-	echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bash_profile
-
+	$(MAKE) fix_bash_profile
 Linux: 
 	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-	echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
-	echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
-	exec "$SHELL"
+	echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> ~/.bash_profile
+	echo 'export PATH="$$PYENV_ROOT/bin:$$PATH"' >> ~/.bash_profile
+	git clone https://github.com/pyenv/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+	
+	$(MAKE) fix_bash_profile
+
+fix_bash_profile:
+	echo 'eval "$$(pyenv init -)"' >> ~/.bash_profile
+	echo 'eval "$$(pyenv virtualenv-init -)"' >> ~/.bash_profile
 	. ~/.bash_profile
-	echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bash_profile
+
 
 build:
 	@echo ""
 	@echo "$(ccso)--> Build $(ccend)"
 	$(MAKE) install
 
+
 venv: $(VENV_DIR)
 
 $(VENV_DIR):
 	@echo "$(ccso)--> Install and setup pyenv and virtualenv $(ccend)"
 	python3 -m pip install --upgrade pip
-	pyenv virtualenv ${PYTHON_VERSION} ${VENV}
+	pyenv virtualenv ${VERSION} ${VENV}
 	echo ${VENV} > .python-version
 
 install: venv requirements.txt
 	@echo "$(ccso)--> Updating packages $(ccend)"
 	$(PYTHON) -m pip install -r requirements.txt
+
+travis_build:
+	@echo ""
+	@echo "$(ccso)--> Build for travis $(ccend)"
+	$(MAKE) travis_install
+
+travis_install:
+	@echo "$(ccso)--> Updating packages $(ccend)"
+	pip install -r requirements.txt
 
 tests:
 	python src/app.py test
@@ -66,4 +80,4 @@ tests:
 run:
 	python src/app.py run
 
-all: install-pyenv build test
+travis_test: travis_build tests

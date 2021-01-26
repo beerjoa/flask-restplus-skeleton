@@ -1,6 +1,9 @@
 # .travis.yml
-language: python
-script: "make all"
+language: 
+  python
+python:
+  "3.7.4"
+script: "make travis_test"
 branches:
   only:
     - master
