@@ -12,7 +12,7 @@
 
 #### 1. set python virtual environment
 
-Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand
+*Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand*
 
 Install pyenv and pyenv-virtualenv on Linux or MacOS
 ```bash
