@@ -24,6 +24,8 @@ clean:
 	find . -type f -name '*.log' -delete
 	find . -type f -name '*.pid' -delete
 	find . -type d -name '__pycache__' -delete
+	find . -type d -name '.coverage' -delete
+	find . -type d -name '.pytest_cache' -delete
 
 install-pyenv:
 	@echo "Install pyenv and pyenv-virtualenv on Linux or MacOS"
