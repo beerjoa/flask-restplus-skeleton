@@ -36,7 +36,7 @@ $ make run
 ```
 ## RUN
 
-To run app:
+To run the app:
 
 ```bash
 $ make run
@@ -46,7 +46,7 @@ $ make run
 
 ## USAGE
 
-- swagger ui
+- swagger UI
 
     http://0.0.0.0:8080/swagger
 
@@ -62,5 +62,5 @@ $ make run
   
 
 
-## Refference
+## Reference
 [Makefile for a Python environment with pyenv-virtualenv](https://gist.github.com/genyrosk/2a6e893ee72fa2737a6df243f6520a6d)
