@@ -1,0 +1,6 @@
+# .travis.yml
+language: python
+script: "make build && make tests && make clean"
+branches:
+  only:
+    - master
