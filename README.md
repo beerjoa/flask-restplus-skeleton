@@ -1,11 +1,17 @@
 # flask-restplus-skeleton
 
+[![Build Status](https://travis-ci.com/beerjoa/flask-restplus-skeleton.svg?branch=master)](https://travis-ci.com/beerjoa/flask-restplus-skeleton)
+[![Coverage Status](https://coveralls.io/repos/github/beerjoa/flask-restplus-skeleton/badge.svg?branch=master)](https://coveralls.io/github/beerjoa/flask-restplus-skeleton?branch=master)
+
 
 ##### [status code WIKI](https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C#3xx_(%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%EC%85%98_%EC%99%84%EB%A3%8C))
 ##### [flask restplus error handling](https://flask-restplus.readthedocs.io/en/stable/errors.html)
 
 
 
+## Requirements
+- pyenv
+- pyenv-virtualenv
 
 
 ## INSTALL
@@ -18,8 +24,10 @@ Install pyenv and pyenv-virtualenv on Linux or MacOS
 ```bash
 $ make install-pyenv
 ```
-
-<br>
+Install python v3.7.4 using pyenv
+```bash
+$ pyenv install 3.7.4
+```
 
 #### 2. build the virtual environment and install requirements
 
@@ -32,7 +40,7 @@ $ make build
 To run test:
 
 ```bash
-$ make run
+$ make test
 ```
 ## RUN
 

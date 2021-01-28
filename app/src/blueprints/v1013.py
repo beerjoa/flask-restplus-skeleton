@@ -1,9 +1,10 @@
 # -- coding: utf-8 --
 
-import configparser
-from apis.root.calc import ns as calc
-from flask_restplus import Api
 from flask import Blueprint
+from flask_restplus import Api
+from ..apis.root.calc import ns as calc
+
+
 authorizations = {
     'Bearer Auth': {
         'type': 'apiKey',
@@ -11,9 +12,10 @@ authorizations = {
         'name': 'Authorization'
     },
 }
-blueprint = Blueprint('api', __name__)
 
-api: Api = Api(blueprint, version='1.0', title='Basic API',
+blueprint = Blueprint('api_1013', __name__, url_prefix='/v1013')
+
+api: Api = Api(blueprint, version='1.0.13', title='Basic API v1.0.13',
                description='basic rest api', doc='/swagger',
                security='Bearer Auth', authorizations=authorizations)
 

@@ -17,15 +17,14 @@ ccso=$(shell tput smso)
 clean:
 	@echo ""
 	@echo "$(ccso)--> Removing virtual environment $(ccend)"
-	pyenv virtualenv-delete --force ${VENV}
-	rm .python-version
 
 	find . -type f -name '*.pyc' -delete
 	find . -type f -name '*.log' -delete
 	find . -type f -name '*.pid' -delete
 	find . -type d -name '__pycache__' -delete
-	find . -type d -name '.coverage' -delete
-	find . -type d -name '.pytest_cache' -delete
+
+	pyenv virtualenv-delete --force ${VENV}
+	rm .python-version
 
 install-pyenv:
 	@echo "Install pyenv and pyenv-virtualenv on Linux or MacOS"
@@ -35,6 +34,7 @@ Darwin:
 	brew update 
 	brew install pyenv pyenv-virtualenv
 	$(MAKE) fix_bash_profile
+
 Linux: 
 	git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 	echo 'export PYENV_ROOT="$$HOME/.pyenv"' >> ~/.bash_profile
@@ -48,38 +48,30 @@ fix_bash_profile:
 	echo 'eval "$$(pyenv virtualenv-init -)"' >> ~/.bash_profile
 	. ~/.bash_profile
 
-
 build:
 	@echo ""
 	@echo "$(ccso)--> Build $(ccend)"
 	$(MAKE) install
 
-
 venv: $(VENV_DIR)
 
 $(VENV_DIR):
 	@echo "$(ccso)--> Install and setup pyenv and virtualenv $(ccend)"
-	python3 -m pip install --upgrade pip
 	pyenv virtualenv ${VERSION} ${VENV}
-	echo ${VENV} > .python-version
+	echo ${VENV} > ./.python-version
 
-install: venv requirements.txt
+install: venv
 	@echo "$(ccso)--> Updating packages $(ccend)"
-	$(PYTHON) -m pip install -r requirements.txt
+	pip install --upgrade pip
+	pip install --upgrade setuptools
+	python app/setup.py install
 
-travis_build:
-	@echo ""
-	@echo "$(ccso)--> Build for travis $(ccend)"
-	$(MAKE) travis_install
-
-travis_install:
-	@echo "$(ccso)--> Updating packages $(ccend)"
-	pip install -r requirements.txt
-
-tests:
-	python src/app.py test
+test:
+	pytest app/tests
 
 run:
-	python src/app.py run
+	python app/run.py
 
-travis_test: travis_build tests
+travis_test:
+	pip install -r requirements.txt
+	pytest app/tests
