@@ -1,0 +1,35 @@
+from setuptools import setup, find_packages
+
+setup(
+    name='src',
+    packages=find_packages(),
+    include_package_data=True,
+    install_requires=[
+        'Flask==1.1.1',
+        'flask_restplus==0.13.0',
+        'Flask_Cors==3.0.8',
+        'Flask_JWT_Extended==3.24.1',
+        'flask_marshmallow==0.11.0',
+        'Flask_DebugToolbar==0.11.0',
+        'Flask-Session==0.3.1',
+        'Flask-Script==2.0.6',
+        'Flask_Bcrypt==0.7.1',
+        'PyJWT==1.6.4',
+        'openpyxl==3.0.3',
+        'Werkzeug==0.16.1',
+        'connexion==2.6.0',
+        'requests==2.23.0',
+        'tldextract==2.2.3',
+        'beautifulsoup4==4.9.1',
+        'python_dateutil==2.8.1',
+        'Jinja2==2.10.1',
+        'six==1.14.0',
+        'MarkupSafe==1.1.0',
+        'pytest==6.2.2',
+        'coverage==5.3.1',
+        'coveralls==3.0.0',
+        'docopt==0.6.2'
+    ],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest']
+)

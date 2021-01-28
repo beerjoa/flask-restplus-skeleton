@@ -1,5 +1,5 @@
 import unittest
-from app import app
+from src import create_app
 import requests
 import json
 import io
@@ -7,8 +7,10 @@ import io
 
 class CommonUnitTest(unittest.TestCase):
     def setUp(self):
-        app.config['TESTING'] = True
-        self.app = app.test_client()
+        self.app = create_app()
+        self.app.config['TESTING'] = True
+        self.app = self.app.test_client()
+
 
 class CalcUnitTestSuccess(CommonUnitTest):
     def runTest(self):
@@ -17,7 +19,7 @@ class CalcUnitTestSuccess(CommonUnitTest):
             'num2': 1,
             'symbol': "+"
         }
-        response = self.app.put('/calc',json=data)
+        response = self.app.delete('/calc', json=data)
         data = json.loads(response.get_data())
         self.assertEqual('success', data["status"])
         self.assertEqual(type({}), type(data['data']))
@@ -30,11 +32,7 @@ class CalcUnitTestFail(CommonUnitTest):
             'num2': 1,
             'symbol': None
         }
-        response = self.app.put('/calc',json=data)
+        response = self.app.delete('/calc', json=data)
         data = json.loads(response.get_data())
         self.assertEqual('fail', data["status"])
         self.assertEqual(type({}), type(data['data']))
-
-
-if __name__ == '__main__':
-    unittest.main()

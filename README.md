@@ -32,7 +32,7 @@ $ make build
 To run test:
 
 ```bash
-$ make run
+$ make tests
 ```
 ## RUN
 

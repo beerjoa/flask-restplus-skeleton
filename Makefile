@@ -17,15 +17,16 @@ ccso=$(shell tput smso)
 clean:
 	@echo ""
 	@echo "$(ccso)--> Removing virtual environment $(ccend)"
-	pyenv virtualenv-delete --force ${VENV}
-	rm .python-version
 
 	find . -type f -name '*.pyc' -delete
 	find . -type f -name '*.log' -delete
 	find . -type f -name '*.pid' -delete
+	find . -type f -name '.coverage' -delete
 	find . -type d -name '__pycache__' -delete
-	find . -type d -name '.coverage' -delete
 	find . -type d -name '.pytest_cache' -delete
+
+	pyenv virtualenv-delete --force ${VENV}
+	rm .python-version
 
 install-pyenv:
 	@echo "Install pyenv and pyenv-virtualenv on Linux or MacOS"
@@ -61,11 +62,11 @@ $(VENV_DIR):
 	@echo "$(ccso)--> Install and setup pyenv and virtualenv $(ccend)"
 	python3 -m pip install --upgrade pip
 	pyenv virtualenv ${VERSION} ${VENV}
-	echo ${VENV} > .python-version
+	echo ${VENV} > ./.python-version
 
 install: venv requirements.txt
 	@echo "$(ccso)--> Updating packages $(ccend)"
-	$(PYTHON) -m pip install -r requirements.txt
+	$(PYTHON) -m pip install --editable ./app
 
 travis_build:
 	@echo ""
@@ -74,12 +75,16 @@ travis_build:
 
 travis_install:
 	@echo "$(ccso)--> Updating packages $(ccend)"
-	pip install -r requirements.txt
+	pip install --editable ./app
+
+test:
+	$(PYTHON) -m pytest app/tests
 
 tests:
-	python src/app.py test
+	$(PYTHON) -m coverage run --source=. -m pytest app/tests && coverage html
 
 run:
-	python src/app.py run
+	$(PYTHON) -m pip list
+	$(PYTHON) app/run.py
 
-travis_test: travis_build tests
+travis_test: travis_build test
