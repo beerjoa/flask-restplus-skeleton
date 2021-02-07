@@ -17,9 +17,11 @@ setup(
         'flask_restplus==0.13.0',
         'Flask_Cors==3.0.8',
         'Flask_JWT_Extended==3.24.1',
+        'Flask-Migrate==2.6.0',
         'PyJWT==1.6.4',
         'Werkzeug==0.16.1',
         'pytest==6.2.2',
+        'python-dotenv==0.15.0'
     ],
     setup_requires=['pytest-runner'],
     tests_require=['pytest']

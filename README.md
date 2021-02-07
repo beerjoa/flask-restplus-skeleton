@@ -3,72 +3,79 @@
 [![Build Status](https://travis-ci.com/beerjoa/flask-restplus-skeleton.svg?branch=master)](https://travis-ci.com/beerjoa/flask-restplus-skeleton)
 [![Coverage Status](https://coveralls.io/repos/github/beerjoa/flask-restplus-skeleton/badge.svg?branch=master)](https://coveralls.io/github/beerjoa/flask-restplus-skeleton?branch=master)
 
+*Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand*
 
-##### [status code WIKI](https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C#3xx_(%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%EC%85%98_%EC%99%84%EB%A3%8C))
-##### [flask restplus error handling](https://flask-restplus.readthedocs.io/en/stable/errors.html)
-
-
-
+## Features
+- [Flask-Restplus](https://flask-restplus.readthedocs.io/en/stable/) > framework for quickly building REST APIs
+- [pytest](https://docs.pytest.org/en/stable/contents.html) > Unit testing 
+- [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/) > JWT Authentication
+- [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) > Database ORM
+- [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/) > Database Migrations
+- Swagger Documentation 
+- API versioning via Blueprints -> [link](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/blueprints)
 ## Requirements
 - pyenv
 - pyenv-virtualenv
 
+## Usage
 
-## INSTALL
 
-#### 1. set python virtual environment
+### Install
 
-*Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand*
+#### 1. Install the virtual environment
 
-Install pyenv and pyenv-virtualenv on Linux or MacOS
+
 ```bash
+### Install pyenv and pyenv-virtualenv on Linux or MacOS
 $ make install-pyenv
 ```
-Install python v3.7.4 using pyenv
+
 ```bash
+### Install python v3.7.4 using pyenv
 $ pyenv install 3.7.4
 ```
 
-#### 2. build the virtual environment and install requirements
+#### 2. Build the virtual environment and install requirements
 
 ```bash
 $ make build
 ```
 
-
-## TEST
-To run test:
+#### 3. Database migrations
 
 ```bash
-$ make test
-```
-## RUN
+### run commands in '/app'
+### create a migration repository 
+$ cd app 
+$ flask db init
 
-To run the app:
+### generate a migration
+$ flask db migrate -m "first migration."
+
+### apply the migration to the database
+$ flask db upgrade
+```
+
+### Run
+Specify flask app environment variables in a [`.flaskenv`](https://github.com/beerjoa/flask-restplus-skeleton/blob/master/app/.flaskenv) file
 
 ```bash
-$ make run
+### run commands in '/app'
+$ flask run
+
+### Swagger Documentation -> http://host:port/swagger
 ```
 
 
+### Test
 
-## USAGE
-
-- swagger UI
-
-    http://0.0.0.0:8080/swagger
-
-
-
-
-
-## Screenshot
-
-  ![example](https://user-images.githubusercontent.com/22663614/105568697-ce19ec80-5d7e-11eb-86f5-afe399746314.png)
-
-
-  
+```bash
+$ pytest app/tests
+```
 
 
 ## Reference
-[Makefile for a Python environment with pyenv-virtualenv](https://gist.github.com/genyrosk/2a6e893ee72fa2737a6df243f6520a6d)
+
+- [status code WIKI](https://ko.wikipedia.org/wiki/HTTP_%EC%83%81%ED%83%9C_%EC%BD%94%EB%93%9C#3xx_(%EB%A6%AC%EB%8B%A4%EC%9D%B4%EB%A0%89%EC%85%98_%EC%99%84%EB%A3%8C))
+- [Makefile for a Python environment with pyenv-virtualenv](https://gist.github.com/genyrosk/2a6e893ee72fa2737a6df243f6520a6d)
+- [Flask Command Line Interface](https://flask.palletsprojects.com/en/1.1.x/cli/)

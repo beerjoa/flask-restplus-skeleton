@@ -3,6 +3,8 @@ import time
 import logging
 from flask import request
 from flask_restplus import Namespace, fields, Resource, reqparse
+from src import db
+from src.models import Calculation
 
 
 logger = logging.getLogger('gunicorn.error')
@@ -26,7 +28,7 @@ calc_parser.add_argument('symbol', default='+', required=True,
 
 @ns.route("")
 @ns.doc(responses={200: 'success', 300: 'Redirected', 400: 'Invalid Argument', 500: 'Mapping Key Error'})
-class calc(Resource):
+class Calc(Resource):
     @ns.doc(parser=calc_parser)
     def get(self):
         """
@@ -47,12 +49,18 @@ class calc(Resource):
             symbol = args['symbol']
 
             success, func_result = _func(num1, num2, symbol)
-
+            
             if not success:
                 raise Exception('failed processing')
 
+            calc_data = Calculation(result=func_result)
+
+            db.session.add(calc_data)
+            db.session.commit()
+
             status = 'success'
             result = {'num': func_result}
+            
             return {
                 'status': status,
                 'data': result
@@ -60,8 +68,8 @@ class calc(Resource):
 
         except Exception as e:
             ns.abort(400, message=e.__doc__, status='fail',
-                     custom_msg=str(e),
-                     errorCode='e201')
+                     data=dict(custom_msg=str(e),
+                     errorCode='e201'))
 
     @ns.expect(model_number)
     def post(self):
@@ -73,7 +81,8 @@ class calc(Resource):
             args = request.json
             logger.info(f"args :::: {args}")
 
-            check_args = _check_args_invalid(args)
+            check_args = _check_args_invalid(
+                args=args, keys=['num1', 'num2', 'symbol'])
             if not check_args:
                 raise Exception('Invalid args')
 
@@ -82,8 +91,14 @@ class calc(Resource):
             symbol = args['symbol']
 
             success, func_result = _func(num1, num2, symbol)
+
             if not success:
                 raise Exception('failed processing')
+
+            calc_data = Calculation(result=func_result)
+
+            db.session.add(calc_data)
+            db.session.commit()
 
             status = 'success'
             result = {'num': func_result}
@@ -95,8 +110,8 @@ class calc(Resource):
 
         except Exception as e:
             ns.abort(400, message=e.__doc__, status='fail',
-                     custom_msg=str(e),
-                     errorCode='e201')
+                     data=dict(custom_msg=str(e),
+                     errorCode='e201'))
 
     @ns.expect(model_number)
     def delete(self):
@@ -108,7 +123,8 @@ class calc(Resource):
             args = request.json
             logger.info(f"args :::: {args}")
 
-            check_args = _check_args_invalid(args)
+            check_args = _check_args_invalid(
+                args=args, keys=['num1', 'num2', 'symbol'])
             if not check_args:
                 raise Exception('Invalid args')
 
@@ -121,6 +137,11 @@ class calc(Resource):
             if not success:
                 raise Exception('failed processing')
 
+            calc_data = Calculation(result=func_result)
+
+            db.session.add(calc_data)
+            db.session.commit()
+
             status = 'success'
             result = {'num': func_result}
             return {
@@ -130,8 +151,8 @@ class calc(Resource):
 
         except Exception as e:
             ns.abort(400, message=e.__doc__, status='fail',
-                     custom_msg=str(e),
-                     errorCode='e201')
+                     data=dict(custom_msg=str(e),
+                     errorCode='e201'))
 
     @ns.expect(model_number)
     def put(self):
@@ -143,7 +164,8 @@ class calc(Resource):
             args = request.json
             logger.info(f"args :::: {args}")
 
-            check_args = _check_args_invalid(args)
+            check_args = _check_args_invalid(
+                args=args, keys=['num1', 'num2', 'symbol'])
             if not check_args:
                 raise Exception('Invalid args')
 
@@ -152,6 +174,12 @@ class calc(Resource):
             symbol = args['symbol']
 
             success, func_result = _func(num1, num2, symbol)
+
+
+            calc_data = Calculation(result=func_result)
+
+            db.session.add(calc_data)
+            db.session.commit()
 
             if not success:
                 raise Exception('failed processing')
@@ -165,8 +193,8 @@ class calc(Resource):
 
         except Exception as e:
             ns.abort(400, message=e.__doc__, status='fail',
-                     custom_msg=str(e),
-                     errorCode='e201')
+                     data=dict(custom_msg=str(e),
+                     errorCode='e201'))
 
 
 def _func(num1, num2, symbol):

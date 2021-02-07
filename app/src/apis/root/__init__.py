@@ -1,1 +1,1 @@
-from .calc import calc
+from .calc import Calc

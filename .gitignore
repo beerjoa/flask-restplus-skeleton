@@ -17,11 +17,6 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-*.pid
-.DS_Store
-.bash_history
-venv/
-
 # C extensions
 *.so
 
@@ -129,3 +124,13 @@ dmypy.json
 
 # End of https://www.gitignore.io/api/redis,python,firebase
 
+
+
+### Custom ###
+*.pid
+.DS_Store
+.bash_history
+venv/
+*.bak
+migrations
+*.db

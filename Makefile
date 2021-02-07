@@ -21,13 +21,23 @@ clean:
 	find . -type f -name '*.pyc' -delete
 	find . -type f -name '*.log' -delete
 	find . -type f -name '*.pid' -delete
-	find . -type d -name '__pycache__' -delete
+	find . -type d -name '__pycache__'  | xargs rm -rf
+	find . -type d -name '.pytest_cache'  | xargs rm -rf
 
 	pyenv virtualenv-delete --force ${VENV}
 	rm .python-version
 
+clean_db:
+	@echo ""
+	@echo "$(ccso)--> Removing migration files $(ccend)"
+
+	find . -type f -name '*.db' -delete
+	find . -type d -name 'migrations'  | xargs rm -rf
+
+
 install-pyenv:
-	@echo "Install pyenv and pyenv-virtualenv on Linux or MacOS"
+	@echo ""
+	@echo "$(ccso)--> Install pyenv and pyenv-virtualenv on Linux or MacOS $(ccend)
 	$(MAKE) $(UNAME)
 
 Darwin: 
@@ -61,17 +71,16 @@ $(VENV_DIR):
 	echo ${VENV} > ./.python-version
 
 install: venv
+	@echo ""
 	@echo "$(ccso)--> Updating packages $(ccend)"
 	pip install --upgrade pip
 	pip install --upgrade setuptools
 	python app/setup.py install
 
-test:
-	pytest app/tests
-
-run:
-	python app/run.py
-
 travis_test:
-	pip install -r requirements.txt
-	pytest app/tests
+	pip install -r requirements.txt; \
+	cd app; \
+	flask db init; \
+	flask db migrate -m "first migration."; \
+	flask db upgrade;
+	pytest app/tests;
