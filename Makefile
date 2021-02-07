@@ -26,8 +26,16 @@ clean:
 	pyenv virtualenv-delete --force ${VENV}
 	rm .python-version
 
+clean_db:
+	@echo ""
+	@echo "$(ccso)--> Removing migration files $(ccend)"
+
+	find . -type f -name '*.db' -delete
+	find . -type d -name 'migrations' -delete
+
 install-pyenv:
-	@echo "Install pyenv and pyenv-virtualenv on Linux or MacOS"
+	@echo ""
+	@echo "$(ccso)--> Install pyenv and pyenv-virtualenv on Linux or MacOS $(ccend)
 	$(MAKE) $(UNAME)
 
 Darwin: 
@@ -61,16 +69,11 @@ $(VENV_DIR):
 	echo ${VENV} > ./.python-version
 
 install: venv
+	@echo ""
 	@echo "$(ccso)--> Updating packages $(ccend)"
 	pip install --upgrade pip
 	pip install --upgrade setuptools
 	python app/setup.py install
-
-test:
-	pytest app/tests
-
-run:
-	python app/run.py
 
 travis_test:
 	pip install -r requirements.txt

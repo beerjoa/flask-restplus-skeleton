@@ -3,6 +3,7 @@
 from flask import Blueprint
 from flask_restplus import Api
 from ..apis.root.calc import ns as calc
+from ..apis.root.result import ns as result
 
 
 authorizations = {
@@ -20,3 +21,4 @@ api: Api = Api(blueprint, version='1.0.13', title='Basic API v1.0.13',
                security='Bearer Auth', authorizations=authorizations)
 
 api.add_namespace(calc)
+api.add_namespace(result)

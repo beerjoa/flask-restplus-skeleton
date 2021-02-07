@@ -1,13 +1,20 @@
 import os
+from .config import config_by_name
 from flask import Flask, request
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 
-def create_app():
-    from flask_cors import CORS
-    from flask_jwt_extended import JWTManager
+cors = CORS()
+jwt = JWTManager()
+db = SQLAlchemy()
+migrate = Migrate()
 
+def create_app(config_name):
     app = Flask(__name__, static_folder='static', template_folder='templates')
+    app.config.from_object(config_by_name[config_name])
 
-    app.config.from_object('src.config.Development')
     from .blueprints import root, v1013
 
     app.register_blueprint(root)
@@ -18,9 +25,12 @@ def create_app():
         response.headers["X-Frame-Options"] = "SAMEORIGIN"
         return response
 
-    cors = CORS(app)
-    jwt = JWTManager(app)
+    db.init_app(app)
+    migrate.init_app(app, db)
+    cors.init_app(app)
+    jwt.init_app(app)
     jwt._set_error_handler_callbacks(app)
 
+    from src import models
 
     return app

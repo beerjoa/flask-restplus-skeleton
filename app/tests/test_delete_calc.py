@@ -4,8 +4,7 @@ import json
 
 class CommonUnitTest(unittest.TestCase):
     def setUp(self):
-        self.app = create_app()
-        self.app.config['TESTING'] = True
+        self.app = create_app('test')
         self.app = self.app.test_client()
 
 
