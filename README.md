@@ -6,13 +6,20 @@
 *Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand*
 
 ## Features
-- [Flask-Restplus](https://flask-restplus.readthedocs.io/en/stable/) > framework for quickly building REST APIs
+- [Flask-Restx](https://flask-restx.readthedocs.io/en/latest/) > framework for quickly building REST APIs
 - [pytest](https://docs.pytest.org/en/stable/contents.html) > Unit testing 
 - [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/) > JWT Authentication
 - [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) > Database ORM
 - [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/) > Database Migrations
 - Swagger Documentation 
 - API versioning via Blueprints -> [link](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/blueprints)
+- Layered Architecture 
+    > [controller](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/controllers)
+
+    > [service](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/services)
+
+    > [dto](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/dtos), [model](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/models)
+
 ## Requirements
 - pyenv
 - pyenv-virtualenv

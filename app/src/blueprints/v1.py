@@ -1,12 +1,3 @@
-# API versioning
-
-
-## Usage
-
-[v1.py](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/blueprints/v1.py)
-
-```python
-
 # -- coding: utf-8 --
 
 from flask import Blueprint
@@ -20,7 +11,6 @@ authorizations = {
     },
 }
 
-## build a blueprint for versioning with url_prefix you want.
 blueprint = Blueprint('api', __name__, url_prefix='/v1')
 
 api: Api = Api(blueprint,
@@ -31,8 +21,4 @@ api: Api = Api(blueprint,
                security='Bearer Auth',
                authorizations=authorizations)
 
-## add namespace imported above to the blueprint
 api.add_namespace(calc_ns)
-
-
-```

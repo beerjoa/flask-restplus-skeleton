@@ -134,3 +134,4 @@ venv/
 *.bak
 migrations
 *.db
+.vscode

@@ -1,2 +1,2 @@
-from .root import blueprint as root
-from .v1013 import blueprint as v1013
+from .v1 import blueprint as v1
+from .v2 import blueprint as v2

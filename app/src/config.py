@@ -6,6 +6,7 @@ BASE_DIR = os.path.join(os.path.dirname(__file__))
 class Config(object):
     DEBUG = False
     TESTING = False
+    RESTX_MASK_SWAGGER = False
 
 class Production(Config):
     JWT_SECRET_KEY = 'flask-secret-jwt'
@@ -19,6 +20,7 @@ class Development(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = "sqlite:///{}".format(os.path.join(BASE_DIR, 'sample_flask_dev.db'))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    ERROR_404_HELP= False
 
 class Testing(Development):
     SECRET_KEY = "flask-secret-test"
