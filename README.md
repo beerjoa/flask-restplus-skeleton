@@ -16,7 +16,7 @@
 - Layered Architecture 
     > [controller](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/controllers)
 
-    > [service](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/services)
+    > [service](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/services/README.MD)
 
     > [dto](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/dtos), [model](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/models)
 

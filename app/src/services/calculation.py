@@ -1,8 +1,6 @@
 from flask_restx import abort
-from sqlalchemy import and_, or_, not_
 from sqlalchemy.orm.exc import NoResultFound
-from sqlalchemy.exc import IntegrityError
-from typing import Dict, Tuple, Union
+from typing import Dict, Union, List, NamedTuple
 from datetime import datetime
 
 from src import db
@@ -13,18 +11,26 @@ from src.models import (
 calc_schema = CalculationSchema()
 calcs_schema = CalculationSchema(many=True)
 
+class CalculationResult(NamedTuple):
+    data: Calculation
+    status_code: int
 
-def create_calc(data: Dict[str, Union[str, int]]):# -> Tuple[Calculation, int]:
-    """새로운 tag 추가 함수
+class CalculationListResult(NamedTuple):
+    data: List[Calculation]
+    status_code: int
+
+
+def create_calc(data: Dict[str, Union[str, int]]) -> CalculationResult:
+    """ create calc data
 
     Args:
-        data (dict): 추가하려는 calculation 데이터
+        data (dict): calc data
 
     Raises:
         InternelServerError: 서버 로직 오류
 
     Returns:
-        Tuple[Calculation, int]: dict: tag 데이터, int: 통신 코드
+        CalculationResult: Calculation, status_code
     """
     try:
         result = eval("%s%s%s" % (data['num1'], data['symbol'], data['num2']))
@@ -37,33 +43,49 @@ def create_calc(data: Dict[str, Union[str, int]]):# -> Tuple[Calculation, int]:
         db.session.add(new_calc)
         db.session.commit()
 
-        return calc_schema.dump(new_calc), 201
+        return CalculationResult(data=calc_schema.dump(new_calc), status_code=201)
 
     except Exception as e:
         abort(500, message='InternelServerError')
 
 
-def select_calcs():# -> Tuple[Calculation, int]:
+def select_calcs() -> CalculationListResult:
+    """ select all calc data
 
+    Raises:
+        InternelServerError: Internel server error
+
+    Returns:
+        CalculationListResult: List[Calculation], status_code
+    """    
     try:
         calcs = Calculation.query.all()
-        return calcs_schema.dump(calcs), 200
+        return CalculationListResult(data=calcs_schema.dump(calcs), status_code=200)
 
-    except NoResultFound as e:
-        abort(404, message=str(e))
     except Exception as e:
         abort(500, message='InternelServerError')
 
 
-def select_calc(calc_id: int):# -> Tuple[Calculation, int]:
+def select_calc(calc_id: int) -> CalculationResult:
+    """ select calc data by calc_id
 
+    Args:
+        calc_id (int): calc id
+
+    Raises:
+        CalcNotFound: Not found data
+        InternelServerError: Internel server error
+
+    Returns:
+        CalculationResult: Calculation, status_code
+    """
     try:
 
         calc = Calculation.query.get(calc_id)
         if not calc:
             raise NoResultFound('CalcNotFound')
 
-        return calc_schema.dump(calc), 200
+        return CalculationResult(data=calc_schema.dump(calc), status_code=200)
 
     except NoResultFound as e:
         abort(404, message=str(e))
@@ -71,19 +93,19 @@ def select_calc(calc_id: int):# -> Tuple[Calculation, int]:
         abort(500, message='InternelServerError')
 
 
-def update_calc(calc_id: int, data: Dict[str, Union[str, int]]):# -> Tuple[Calculation, int]:
-    """ calc_id에 해당하는 calculation 수정 함수
+def update_calc(calc_id: int, data: Dict[str, Union[str, int]]) -> CalculationResult:
+    """ update calc data by calc_id
 
     Args:
-        calc_id (int): Calculation ID
-        data (dict): 수정 calculation 데이터
+        calc_id (int): calc id
+        data (dict): calc data for update
 
     Raises:
-        NoResultFound: calc_id에 해당하는 데이터가 존재하지 않을 때
-        InternelServerError: 서버 로직 오류
+        CalcNotFound: Not found data
+        InternelServerError: Internel server error
 
     Returns:
-        Tuple[Calculation, int]: dict: tag 데이터, int: 통신 코드
+        CalculationResult: Calculation, status_code
     """
     try:
         calc = Calculation.query.filter_by(calc_id=calc_id)
@@ -104,7 +126,7 @@ def update_calc(calc_id: int, data: Dict[str, Union[str, int]]):# -> Tuple[Calcu
             calc.update(update_data, synchronize_session=False)
             db.session.commit()
 
-        return calc_schema.dump(calc.first()), 200
+        return CalculationResult(data=calc_schema.dump(calc.first()), status_code=200)
 
     except NoResultFound as e:
         abort(404, message=str(e))
@@ -112,18 +134,18 @@ def update_calc(calc_id: int, data: Dict[str, Union[str, int]]):# -> Tuple[Calcu
         abort(500, message='InternelServerError')
 
 
-def delete_calc(calc_id: int):# -> Tuple[Calculation, int]:
-    """ calc_id에 해당하는 calculation 삭제
+def delete_calc(calc_id: int) -> CalculationResult:
+    """ delete calc data by calc_id
 
     Args:
-        calc_id (int): Calculation ID
+        calc_id (int): calc id
 
     Raises:
-        NoResultFound: calc_id에 해당하는 데이터가 존재하지 않을 때
-        InternelServerError: 서버 로직 오류
+        CalcNotFound: Not found data
+        InternelServerError: Internel server error
 
     Returns:
-        Tuple[Calculation, int]: dict: tag 데이터, int: 통신 코드
+        CalculationResult: Calculation, status_code
     """
     try:
         calc = Calculation.query.filter_by(calc_id=calc_id)
@@ -139,7 +161,7 @@ def delete_calc(calc_id: int):# -> Tuple[Calculation, int]:
             calc.update(delete_data, synchronize_session=False)
             db.session.commit()
 
-        return calc_schema.dump(calc.first()), 200
+        return CalculationResult(data=calc_schema.dump(calc.first()), status_code=200)
 
     except NoResultFound as e:
         abort(404, message=str(e))
