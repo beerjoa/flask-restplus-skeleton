@@ -60,7 +60,7 @@ class Calc(Resource):
 class CalcId(Resource):
     @ns.marshal_with(_data_calculation, code=200, description='OK')
     def get(self, calc_id):
-        """ calc_id에 해당하는 calculation 데이터 조회
+        """ Get calculation data by calc_id
 
         Returns:
             Tuple[Calculation, int]: dict: calculation 데이터, int: 통신 코드
@@ -71,7 +71,7 @@ class CalcId(Resource):
     @ns.expect(_input_calculation, validate=True)
     @ns.marshal_with(_data_calculation, code=200, description='OK')
     def put(self, calc_id):
-        """ calc_id에 해당하는 calculation 데이터 수정
+        """ Update calculation data by calc_id
 
         Returns:
             Tuple[Calculation, int]: dict: calculation 데이터, int: 통신 코드
@@ -82,7 +82,7 @@ class CalcId(Resource):
 
     @ns.marshal_with(_data_calculation, code=200, description='OK')
     def delete(self, calc_id):
-        """ calc_id에 해당하는 calculation 데이터 삭제
+        """ Delete calculation data by calc_id
 
         Returns:
             Tuple[Calculation, int]: dict: calculation 데이터, int: 통신 코드
