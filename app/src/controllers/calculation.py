@@ -7,7 +7,7 @@ from ..services import (
     update_calc,
     delete_calc,
     select_calc,
-    select_calcs
+    select_calc_list
 )
 
 ns = CalculationDto.ns
@@ -33,7 +33,7 @@ class Calc(Resource):
             Tuple[Dict[str, List[Calculation]], int]: dict: calculation 데이터, int: 통신 코드
         """
         
-        return select_calcs()
+        return select_calc_list()
 
 
     @ns.expect(_input_calculation, validate=True)

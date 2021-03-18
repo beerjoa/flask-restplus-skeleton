@@ -19,6 +19,8 @@ setup(
         'Flask_JWT_Extended==3.24.1',
         'Flask-Migrate==2.6.0',
         'flask-marshmallow==0.14.0',
+        'Flask-SQLAlchemy==2.4.1',
+        'SQLAlchemy==1.3.13',
         'PyJWT==1.6.4',
         'Werkzeug==0.16.1',
         'pytest==6.2.2',

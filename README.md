@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/beerjoa/flask-restplus-skeleton.svg?branch=master)](https://travis-ci.com/beerjoa/flask-restplus-skeleton)
 [![Coverage Status](https://coveralls.io/repos/github/beerjoa/flask-restplus-skeleton/badge.svg?branch=master)](https://coveralls.io/github/beerjoa/flask-restplus-skeleton?branch=master)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fbeerjoa%2Fflask-restplus-skeleton&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
 
 *Make sure you have `pyenv` and `pyenv-virtualenv` installed beforehand*
 
@@ -16,7 +17,7 @@
 - Layered Architecture 
     > [controller](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/controllers)
 
-    > [service](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/services/README.MD)
+    > [service](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/services)
 
     > [dto](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/dtos), [model](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/models)
 

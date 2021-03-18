@@ -83,4 +83,4 @@ travis_test:
 	flask db init; \
 	flask db migrate -m "first migration."; \
 	flask db upgrade;
-	pytest app/tests;
+	pytest app/tests --disable-pytest-warnings -vs;

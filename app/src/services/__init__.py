@@ -3,5 +3,5 @@ from .calculation import (
     update_calc,
     delete_calc,
     select_calc,
-    select_calcs
+    select_calc_list
 )
