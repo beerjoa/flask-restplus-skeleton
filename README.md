@@ -13,7 +13,7 @@
 - [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) > Database ORM
 - [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/) > Database Migrations
 - Swagger Documentation 
-- API versioning via Blueprints -> [link](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/blueprints)
+- API versioning via [Blueprints](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/blueprints)
 - Layered Architecture 
     > [controller](https://github.com/beerjoa/flask-restplus-skeleton/tree/master/app/src/controllers)
 
